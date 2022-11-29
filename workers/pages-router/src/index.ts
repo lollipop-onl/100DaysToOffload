@@ -1,6 +1,8 @@
-const SUB_DIR: Record<string, string> = {
-  '2023': 'https://100daystooffload2023.pages.dev'
-}
+const DEFAULT_SUB_PATH = '/2023/';
+
+const PROJECTS = [
+  { key: '2023', baseUrl: 'https://100daystooffload2023.pages.dev' }
+]
 
 addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') {
@@ -9,22 +11,25 @@ addEventListener('fetch', (e) => {
   
   const { pathname, origin } = new URL(e.request.url);
 
-  for (const subDir in SUB_DIR) {
-    // プロパティが定義されていなければスキップ
-    if (!SUB_DIR.hasOwnProperty(subDir)) continue;
+  // トップの場合は最新のプロジェクトへリダイレクト
+  if (pathname === '/') {
+    const url = new URL(DEFAULT_SUB_PATH, origin);
+    
+    return e.respondWith(Response.redirect(url.href, 302));
+  }
 
-    // プロパティのサブディレクトリでなければスキップ
-    if (!pathname.startsWith(`/${subDir}/`) && pathname !== `/${subDir}`) continue;
+  // 末尾スラッシュへリダイレクト
+  if (!pathname.endsWith('/') && !/\.[^/]+$/.test(pathname)) {
+    const url = new URL(`${pathname}/`, origin);
+    
+    return e.respondWith(Response.redirect(url.href, 301));
+  }
 
-    // 末尾スラッシュへリダイレクト
-    if (!pathname.endsWith('/') && !/\.[^/]+$/.test(pathname)) {
-      const url = new URL(`${pathname}/`, origin);
-      
-      return e.respondWith(Response.redirect(url.href, 301));
-    }
+  const project = PROJECTS.find(({ key }) => pathname.startsWith(`/${key}/`));
 
-    const baseUrl = SUB_DIR[subDir];
-    const url = new URL(pathname.replace(`/${subDir}`, ''), baseUrl);
+  if (project) {
+    const { key, baseUrl } = project
+    const url = new URL(pathname.replace(`/${key}`, ''), baseUrl);
 
     return e.respondWith(fetch(url.href));
   }
