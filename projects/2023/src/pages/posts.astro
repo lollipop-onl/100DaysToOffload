@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { createClient } from 'microcms-js-sdk'
+
+const client = createClient({
+  serviceDomain: import.meta.env.API_SERVICE_DOMAIN,
+  apiKey: import.meta.env.API_KEY,
+})
+
+const { contents } = await client.get({ endpoint: 'blogs' });
+---
+
+<Layout>
+  <p>list of posts.</p>
+  <ol>
+    {contents.map(({ title }: any) => (
+      <li>{title}</li>
+    ))}
+  </ol>
+  <a href="/2023/">Home</a>
+</Layout>
