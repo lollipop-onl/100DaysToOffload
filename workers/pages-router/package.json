@@ -4,8 +4,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler publish"
+    "deploy": "wrangler publish",
+    "dev": "wrangler dev"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",

@@ -1,12 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from '../layouts/Layout.astro';
 
-import { createClient } from 'microcms-js-sdk'
+import { createClient } from 'microcms-js-sdk';
 
 const client = createClient({
   serviceDomain: import.meta.env.API_SERVICE_DOMAIN,
   apiKey: import.meta.env.API_KEY,
-})
+});
 
 const { contents } = await client.get({ endpoint: 'blogs' });
 ---
@@ -14,10 +14,13 @@ const { contents } = await client.get({ endpoint: 'blogs' });
 <Layout>
   <p>list of posts.</p>
   <ol>
-    {contents.map(({ id, title }: any) => (
-      <li>
-        <a href={`/2023/entry/${id}/`}>{title}</a></li>
-    ))}
+    {
+      contents.map(({ id, title }: any) => (
+        <li>
+          <a href={`/2023/entry/${id}/`}>{title}</a>
+        </li>
+      ))
+    }
   </ol>
   <a href="/2023/">Home</a>
 </Layout>

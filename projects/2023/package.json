@@ -1,11 +1,11 @@
 {
   "name": "2023",
-  "type": "module",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build"
+    "build": "astro build",
+    "dev": "astro dev"
   },
   "dependencies": {
     "@astrojs/tailwind": "^2.1.3",
