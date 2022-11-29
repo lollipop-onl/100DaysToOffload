@@ -1,0 +1,13 @@
+{
+  "name": "2023",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build"
+  },
+  "dependencies": {
+    "astro": "^1.6.11"
+  }
+}
