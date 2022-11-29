@@ -7,5 +7,12 @@
     "email": "lollipop@simochee.net",
     "url": "https://100daystooffload.lollipop.onl"
   },
-  "workspaces": ["projects/*"]
+  "workspaces": [
+    "projects/*",
+    "workers/*"
+  ],
+  "volta": {
+    "node": "16.18.1",
+    "yarn": "1.22.19"
+  }
 }

@@ -1,0 +1,3 @@
+name = "pages-router"
+main = "src/index.ts"
+compatibility_date = "2022-11-29"
