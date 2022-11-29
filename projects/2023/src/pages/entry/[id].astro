@@ -25,7 +25,7 @@ const { title, content } =await client.get({ endpoint: 'blogs', contentId: `${id
 ---
 
 <Layout>
-  <article>
+  <article class="prose prose-sm">
     <h1>{title}</h1>
     <Fragment set:html={content} />
   </article>
