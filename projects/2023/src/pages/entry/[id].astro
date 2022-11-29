@@ -1,0 +1,32 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+import { createClient } from 'microcms-js-sdk'
+
+export const getStaticPaths = async () => {
+  const client = createClient({
+    serviceDomain: import.meta.env.API_SERVICE_DOMAIN,
+    apiKey: import.meta.env.API_KEY,
+  })
+
+  const { contents } = await client.get({ endpoint: 'blogs' });
+
+  return contents.map(({ id }: any) => ({ params: { id }}));
+}
+
+const { id } = Astro.params;
+
+const client = createClient({
+  serviceDomain: import.meta.env.API_SERVICE_DOMAIN,
+  apiKey: import.meta.env.API_KEY,
+})
+
+const { title, content } =await client.get({ endpoint: 'blogs', contentId: `${id}` });
+---
+
+<Layout>
+  <article>
+    <h1>{title}</h1>
+    <Fragment set:html={content} />
+  </article>
+</Layout>

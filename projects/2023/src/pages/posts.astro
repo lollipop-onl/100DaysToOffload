@@ -14,8 +14,9 @@ const { contents } = await client.get({ endpoint: 'blogs' });
 <Layout>
   <p>list of posts.</p>
   <ol>
-    {contents.map(({ title }: any) => (
-      <li>{title}</li>
+    {contents.map(({ id, title }: any) => (
+      <li>
+        <a href={`/2023/entry/${id}`}>{title}</a></li>
     ))}
   </ol>
   <a href="/2023/">Home</a>
